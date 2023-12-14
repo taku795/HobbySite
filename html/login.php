@@ -23,22 +23,28 @@
         if (isset($pw,$id)) {
             // DB接続
             $pdo = db_connect();
-
+			
+			// SQLを実行し結果を取得
+			$sql = "select * from users where id = '{$id}';";
+			$result = $pdo -> query($sql);
+			
             // ID登録されているか確認
-            $sql = "select * from users where id = '{$id}';";
-            $result = $pdo -> query($sql);
-            $aryList = $result -> fetchAll(PDO::FETCH_ASSOC);
-            
-            // 要素があればセット
-            if (count($aryList)==1) {
-                if ($aryList[0]['Password'] == $pw) {
-                    echo $aryList[0]['ID'];
-                    $_SESSION['user_id'] =$aryList[0]['ID'];
-                } else {
-                    echo 'パスワードが違う';
-                }
-                 
-            }
+			if (($result -> rowCount()) == 1) {
+				// 一件だけ該当がある
+				$array = $result -> fetch();
+
+				// IDとパスワードの判定
+				if ($array['ID'] == $id && $array['Password'] == $pw) {
+					// ホームに飛ばす
+					header('location:home.php');
+				}
+			} else if (($result -> rowCount()) == 0) {
+				// 登録されていない場合
+				$id_erro = 'IDが登録されていません';
+			} else if (($result -> rowCount()) >= 2) {
+				// 複数の該当がある場合
+				$id_erro = '管理者に問い合わせてください';
+			}
 
         }
     
