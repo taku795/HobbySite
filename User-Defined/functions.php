@@ -9,4 +9,16 @@
 			exit;
 		}
 	}
+
+	function makeArticles($title ,$content) {
+		if (isset($title,$content)) {
+			echo '<article>';
+			echo "<h3>{$title}</h3>";
+			echo "<p>{$content}</p>";
+			echo '</article>';
+		}
+	}
+	
+	
 ?>
+

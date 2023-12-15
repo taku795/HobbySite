@@ -1,25 +1,54 @@
+<?php
+	// 変数初期化
+	$title = $content = $day = array();
+	$error = $list = '';
+
+	// ユーザー定義関数
+    require('../../User-Defined/functions.php');
+
+	// 記事を取得
+	// DB接続
+	$pdo = db_connect();	
+	// SQLを実行し結果を取得
+	$sql = "select * from articles where id < 6;";
+	$result = $pdo -> query($sql);
+
+	// エラー確認
+	if (($result -> errorCode()) == '0000') {
+		$list = $result -> fetchAll();
+		// 記事情報取得
+		foreach($list as $e) {
+			$title[] = $e['Title'];
+			$content[] = $e['Content'];
+		}
+	} else {
+		$error = '記事が取得できませんでした';
+	}
+	
+?>
+
 <section class='articles'>
-  <h2>記事一覧</h2>
-  <?php
-  // 記事内容を新しい順に取得して表示
-  // foreach($sql=$pdo->query('select * from content') as $row ) {
-  //   echo 
-  //   "
-  //   <article>
-  //   <form name='form$row[id]' target='_brank' action='content/content_page.php?content_id=$row[id]' method='post'>
-  //   <a href='javascript:form$row[id].submit()'>
-  //   <div class='content'>
-  //   <p>タイトル：$row[Title]</p>
-  //   <div class='content-body'>
-  //   <p>$row[Content]</p>
-  //   </div>
-  //   </div>
-  //   </a>
-  //   </form>
-  //   </article>
-  //   ";
-  // }
+	<span><?php echo $error; ?></span>
+	<h2>人気記事</h2>
+	<?php   
+		// 記事出力
+		if ($error == '') {
+			for ($i = 0; $i<count($title); $i++) {
+				makeArticles($title[$i],$content[$i]);
+			}
+		}
 
-  ?>
+	?>
+	
+	<h2>最新記事</h2>
+	<?php   
+		// 記事出力
+		if ($error == '') {
+			for ($i = 0; $i<count($title); $i++) {
+				makeArticles($title[$i],$content[$i]);
+			}
+		}
 
+	?>
+	
 </section>
