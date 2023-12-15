@@ -35,6 +35,10 @@
 
 				// IDとパスワードの判定
 				if ($array['ID'] == $id && $array['Password'] == $pw) {
+					// セッションにユーザーIDを登録
+					session_start();
+					$_SESSION['id'] = $id;
+
 					// ホームに飛ばす
 					header('location:home.php');
 				}

@@ -32,7 +32,7 @@
 		<nav>
 			<ul class="nav">
 				<li id="menyu"><button>設定</button></li>
-				<li id="write"><button>記事を書く</button></li>
+				<li id="write"><a href="make_page/post.php" target='_blank'>記事を書く</a></li>
 				<li id="good"><button>いいね一覧</button></li>
 				<li id="search"><button>検索</button></li>
 				<li id="follow"><button>フォロー</button></li>
@@ -55,9 +55,9 @@
 		$('#home').click(function() {
 			$('#main').load('make_page/home.php');
 		})
-		$('#write').click(function() {
-			$('#main').load('make_page/post.php');
-		})
+		// $('#write').click(function() {
+		// 	$('#main').load('make_page/post.php');
+		// })
 		$('#room').click(function() {
 			$('#main').load('make_page/board.php');
 		})
