@@ -1,33 +1,75 @@
+<?php
+	// 変数初期化
+	$title = $content = $day = array();
+	$error = $list = $name = '';
+
+	// ユーザー定義関数
+    require('../../User-Defined/functions.php');
+    
+    // ユーザー情報取得
+    // DB接続
+	$pdo = db_connect();	
+    session_start();
+    // SQLを実行し結果を取得
+	$sql = "SELECT `Name` FROM `users` WHERE ID = '$_SESSION[id]';";
+	$result = $pdo -> query($sql);
+
+	// エラー確認
+	if (($result -> errorCode()) == '0000' && ($result -> rowCount()) == 1) {
+        // 名前取得
+		$list = $result -> fetch(PDO::FETCH_ASSOC);
+        $name = $list['Name'];
+	} else {
+		$error = 'ユーザー情報が正しく取得できませんでした';
+        exit();
+	}
+
+	// 記事を取得
+	// SQLを実行し結果を取得
+	$sql = "select * from articles where WriteUser = '$_SESSION[id]';";
+	$result = $pdo -> query($sql);
+
+	// エラー確認
+	if (($result -> errorCode()) == '0000') {
+		$list = $result -> fetchAll();
+		// 記事情報取得
+		foreach($list as $e) {
+			$title[] = $e['Title'];
+			$content[] = $e['Content'];
+		}
+	} else {
+		$error = '記事が取得できませんでした';
+	}
+
+?>
+
+
 <section class="menyupage">
+    <?php echo $error; ?>
     <h2>設定</h2>
     <p>あなただけがみれる画面です</p>
-    <div class="loginID">
-        <p>ログインID</p>
-    </div>
-    
-    <!-- 記事投稿には必須 -->
+    <p>ログインID</p>
+    <p><?php echo $_SESSION['id']; ?></p>
     <p>名前</p>
-    <p>メールアドレス</p>
-
-    <p>Googleのメールアドレスを設定するとログインがスムーズになります</p>
-    <button id="content_delete">記事を編集する</button>
-    <p><a href="menyu/finish.php?logout=1">ログアウトする</a></p>
+    <p><?php echo $name; ?></p>
+    
+    <!-- ログアウト -->
+    <a href="logout.php">ログアウト</a>
 </section>
 
 <section class="account-page">
     <h2>アカウントページ画面</h2>
-    <p class='sub'>　さんの記事一覧</p>
-    <div class="articles">
-        
-    </div>
+    <p class='sub'><?php echo $_SESSION['id']; ?>　さんの記事一覧</p>
+    
+    <?php   
+		// 記事出力
+		if ($error == '') {
+			for ($i = 0; $i<count($title); $i++) {
+				makeArticles($title[$i],$content[$i]);
+			}
+		}
+
+	?>
+
 </section>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-    $(function() {
-    //クリック時
-    $('#content_delete').click(function() {
-        $('#main').load('menyu/content_delete.php');
-    })
-    })
-</script>
