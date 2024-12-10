@@ -2,8 +2,6 @@
 <html lang="jp">
 <head>
     <meta charset="UTF-8">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="485636287764-buq3prhqbqldmgigcsjmcg7p4ct4jl30.apps.googleusercontent.com">
     <link rel="stylesheet" href="css/login_page.css">
     <title>ログインページ</title>
 </head>
@@ -62,34 +60,5 @@ $pdo->query("DELETE FROM good WHERE Content_ID IS null OR Login_ID IS null");
   </div>
 </section>
 
-<!-- ログインボタンが押されて、ログインに成功したら画面遷移 -->
-<script>
-  var clicked=false;
-
-  function onClick() {
-    clicked=true;
-  }
-  
-  function onSignIn(googleUser) {
-      if (clicked) {
-        var profile = googleUser.getBasicProfile();
-        var gmail=profile.getEmail();
-        var url='https://taku777.herokuapp.com/login/request.php?mail='+gmail;
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.send();
-        xhr.onreadystatechange = function() {
-          if(xhr.readyState === 4 && xhr.status === 200) {
-              if(xhr.responseText==1) {
-                window.location.href = 'login/login.php'; 
-              } else {
-                alert('登録されていません');
-              }
-          }
-        }
-      }
-    }
-</script>
 </body>
 </html>
