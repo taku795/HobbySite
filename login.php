@@ -12,19 +12,10 @@ $_SESSION['user_mail']=null;
 $_SESSION['user_name']=null;
 $_SESSION['login_id']=null;
 
-try{
-  $pdo=new PDO('mysql:host=us-cdbr-east-04.cleardb.com;dbname=heroku_57d4f20f139d026;charset=utf8',
-'b0e1b2175788a4','46b12765');
-}catch(PDOException $e){
-  print('DB接続エラー:'.$e->getMessage());
-}
+// DB接続
 
 //NULLの入る可能性のあるところで消去を実行する
-$pdo->query("DELETE FROM tag_to_content WHERE Content_ID IS null");
-$pdo->query("DELETE FROM comment_to_content WHERE Content_ID IS null OR Login_ID IS null");
-$pdo->query("DELETE FROM content WHERE Login_ID IS null");
-$pdo->query("DELETE FROM follow WHERE Follow_ID IS null OR Follower_ID IS null");
-$pdo->query("DELETE FROM good WHERE Content_ID IS null OR Login_ID IS null");
+
 ?>
 
 <section class="loginform">
@@ -32,19 +23,11 @@ $pdo->query("DELETE FROM good WHERE Content_ID IS null OR Login_ID IS null");
   <form class="nomal_login" action='login/login.php' method='post'>
     <p>ログインID：<input class="text" type='text' name='Login_ID'></p>
     <?php
-    if ($_GET['no_id']) {
-      echo '<p>入力されていません</p>';
-    }
+    // 入力チェック
     ?>
     <p>パスワード：<input class="text" type='text' name='Login_Password'></p>
     <?php
-    if ($_GET['no_password']) {
-      echo '<p>入力されていません</p>';
-    }
-
-    if ($_GET['wrong']) {  
-      echo '<p>パスワードかIDが間違っています</p>';
-    }
+    // 入力チェック
     ?>
     <input class="nomal_button" type='submit' value='ログイン'>
   </form>
@@ -53,11 +36,7 @@ $pdo->query("DELETE FROM good WHERE Content_ID IS null OR Login_ID IS null");
     <a href="login/new_page.php">新規登録</a>
   </div>
 
-  <!-- Googleログインボタン -->
-  <div class="google_login">
-    <p>↓ログインIDとGoogleアカウントを連携されている方のみ利用できます</p>
-    <div class="g-signin2" data-onsuccess="onSignIn" onclick="onClick()"></div>
-  </div>
+
 </section>
 
 </body>
