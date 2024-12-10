@@ -6,7 +6,7 @@
 ----------------------------------*/
 @import "layout.css";
 /* 通常ログインフォーム */
-.loginform {
+.LoginSection {
     border-radius: 10px;
     border: solid 5px #A67B5B;
     width: 50%;
@@ -15,7 +15,7 @@
     padding: 10px;
 }
 
-.nomal_login {
+.LoginForm {
     text-align: center;
 }
 .nomal_login text {

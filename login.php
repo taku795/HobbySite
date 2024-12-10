@@ -2,25 +2,27 @@
 <html lang="jp">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/login_page.css">
+    <link rel="stylesheet" href="css/login.css">
     <title>ログインページ</title>
 </head>
 <body>
 <?php
+include('common/DatabaseController.php');
+
 session_start();
 $_SESSION['user_mail']=null;
 $_SESSION['user_name']=null;
 $_SESSION['login_id']=null;
 
 // DB接続
-
-//NULLの入る可能性のあるところで消去を実行する
+$dbController = new DatabaseController;
+$dbController->ConnectionDatebase();
 
 ?>
 
-<section class="loginform">
+<section class="LoginSection">
   <!-- 通常ログイン -->
-  <form class="nomal_login" action='login/login.php' method='post'>
+  <form class="LoginForm" action='login/login.php' method='post'>
     <p>ログインID：<input class="text" type='text' name='Login_ID'></p>
     <?php
     // 入力チェック
