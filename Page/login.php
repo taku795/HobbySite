@@ -2,12 +2,12 @@
 <html lang="jp">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../Css/login.css">
     <title>ログインページ</title>
 </head>
 <body>
 <?php
-include('common/DatabaseController.php');
+include('../Common/DatabaseController.php');
 
 session_start();
 $_SESSION['user_mail']=null;
@@ -22,7 +22,7 @@ $dbController->ConnectionDatebase();
 
 <section class="LoginSection">
   <!-- 通常ログイン -->
-  <form class="LoginForm" action='login/login.php' method='post'>
+  <form class="LoginForm" action='../Logic/login/login.php' method='post'>
     <p>ログインID：<input class="text" type='text' name='Login_ID'></p>
     <?php
     // 入力チェック
@@ -35,7 +35,7 @@ $dbController->ConnectionDatebase();
   </form>
 
   <div class="new_set">
-    <a href="login/new_page.php">新規登録</a>
+    <a href="../Logic/login/new_page.php">新規登録</a>
   </div>
 
 
