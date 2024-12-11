@@ -23,8 +23,8 @@ $dbController->ConnectionDatebase();
 <section class="LoginSection">
   <!-- 通常ログイン -->
   <form id="LoginForm" class = "LoginForm">
-    <p>ログインID：<input class="text" type='text' name='Login_ID' id='LoginID'></p>
-    <p>パスワード：<input class="text" type='text' name='Login_Password' id='LoginPassword'></p>
+    <p>ログインID：<input class="text" type='text' name='LoginID' id='LoginID'></p>
+    <p>パスワード：<input class="text" type='text' name='LoginPassword' id='LoginPassword'></p>
     <input class="nomal_button" type='submit' value='ログイン'>
     <div id = "resultMessage"></div>
   </form>
@@ -64,7 +64,7 @@ $dbController->ConnectionDatebase();
     .then(response => response.json()) // JSON形式でレスポンスを処理
     .then(data => {
         if (data.status === 'success') {
-            resultMessage.textContent = data.message;
+          window.location.href = data.url;
         } else {
             resultMessage.style.color = 'red';
             resultMessage.textContent = data.message;
