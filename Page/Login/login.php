@@ -6,20 +6,6 @@
     <title>ログインページ</title>
 </head>
 <body>
-<?php
-include('../../Common/DatabaseController.php');
-
-session_start();
-$_SESSION['user_mail']=null;
-$_SESSION['user_name']=null;
-$_SESSION['login_id']=null;
-
-// DB接続
-$dbController = new DatabaseController;
-$dbController->ConnectionDatebase();
-
-?>
-
 <section class="LoginSection">
   <!-- 通常ログイン -->
   <form id="LoginForm" class = "LoginForm">

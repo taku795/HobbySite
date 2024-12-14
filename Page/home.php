@@ -3,7 +3,7 @@
   <head>
       <meta charset="UTF-8">
       <title>趣味旅行サイト</title>
-      <link rel="stylesheet" href="css/home.css">
+      <link rel="stylesheet" href="../Css/home.css">
   </head>
 
   <body>
@@ -26,12 +26,14 @@
     </section>
 
     
-    <div id="main" class="main"></div>
+    <div id="main" class="main">  
+
+	</div>
 
     <footer>
       <h1>あなたの人生が<br>より楽しいものになりますように</h1>
     </footer>
-    
+<!--     
     <script>
       $(function() {
         //通常読み込み時
@@ -61,7 +63,7 @@
         })
         
       })
-    </script>
+    </script> -->
   
   </body>
 </html>
