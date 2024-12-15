@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../Css/login.css">
     <title>ログインページ</title>
+    <script src="../../Common/Const.js.php"></script>
 </head>
 <body>
 <section class="LoginSection">
@@ -22,7 +23,6 @@
 
 </body>
 </html>
-
 
 <script>
   document.getElementById('LoginForm').addEventListener('submit', function (event) {
@@ -43,7 +43,7 @@
     
 
     // Fetch APIで非同期POSTリクエストを送信
-    fetch('../../Logic/login/login.php', {
+    fetch(LOGIN_URL, {
         method: 'POST',
         body: formData
     })

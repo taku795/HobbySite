@@ -1,5 +1,6 @@
 <?php 
-    include INCLUDE_URL;
+    require_once $_SERVER['DOCUMENT_ROOT'].'/'.'Common/Const.php';
+    require_once INCLUDE_URL;
 
     // ポスト以外は想定していないため
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

@@ -27,8 +27,7 @@
 
     
     <div id="main" class="main">  
-
-	</div>
+	  </div>
 
     <footer>
       <h1>あなたの人生が<br>より楽しいものになりますように</h1>
