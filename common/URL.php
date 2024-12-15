@@ -1,14 +1,12 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/'.'Common/Const.php';
-    
 class URL {
     private string $_protokol;
     private string $_hostName;
     private string $_errormsg = '想定外の画面に遷移しようとしています';
     private $_pathMap = [
-        'home' => PATH_HOME_PAGE,
-        'login' => PATH_LOGIN_PAGE,
-        'loginLogic' => PATH_LOGIN_LOGIC
+        'home' => 'Page/home.php',
+        'login' => 'Page/Login/login.php',
+        'loginLogic' => 'Logic/Login/login.php'
     ];
 
     public function __construct() {
