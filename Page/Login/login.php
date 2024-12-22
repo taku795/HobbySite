@@ -25,42 +25,75 @@
 </html>
 
 <script>
-  document.getElementById('LoginForm').addEventListener('submit', function (event) {
-    // デフォルトのフォーム送信を防止
-    event.preventDefault();
+	// 処理結果表示領域
+	const _resultMessage = document.getElementById('resultMessage');
+	// ログインイベント追加
+	document.getElementById('LoginForm').addEventListener('submit', login);
 
-    // フォームデータを取得
-    const formData = new FormData(this);
-    const resultMessage = document.getElementById('resultMessage');
+	function login(event) {
+		// デフォルトのフォーム送信を防止
+		event.preventDefault();
 
-    // バリデーションチェック
-    if (document.getElementById('LoginID').value && document.getElementById('LoginPassword').value) {
-      // OK
-    } else {
-      resultMessage.textContent = "IDとパスワードを入力してください";
-      return;
-    }
-    
+		const formData = new FormData(this);
+		const requireError = "IDとパスワードを入力してください";
+		const commuError = "通信エラーです";
+		const resultAreaUndifine = "システムエラー：メッセージの表示ができません";
 
-    // Fetch APIで非同期POSTリクエストを送信
-    fetch(LOGIN_URL, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json()) // JSON形式でレスポンスを処理
-    .then(data => {
-        if (data.status === 'success') {
-          window.location.href = data.url;
-        } else {
-            resultMessage.style.color = 'red';
-            resultMessage.textContent = data.message;
-        }
-    })
-    .catch(error => {
-        console.error('通信エラー:', error);
-        document.getElementById('resultMessage').style.color = 'red';
-        document.getElementById('resultMessage').textContent = '通信エラーが発生しました';
-    });
-  });
 
+		if (_resultMessage == null) {
+			alert(resultAreaUndifine);
+			return;
+		}
+
+		// バリデーションチェック
+		if (document.getElementById('LoginID').value && document.getElementById('LoginPassword').value) {
+			// OK
+		} else {
+			_resultMessage.style.color = 'black';
+			_resultMessage.textContent = requireError;
+			return;
+		}
+
+		// Fetch APIで非同期POSTリクエストを送信
+		fetch(LOGIN_URL, {
+			method: 'POST',
+			body: formData
+		})
+		.then(convertToJson)
+		.then(redirectToResonseURL)
+		.catch(errorLog);
+	}
+
+
+	// JSON形式でレスポンスを処理
+	function convertToJson(response) {
+		return response.json();
+	}
+
+	// レスポンスURLに遷移させる
+	// 失敗した場合はresultMessageオブジェクトが必要
+	function redirectToResonseURL(response) {
+		// ログイン可ユーザー
+		if (response.status ==  'true') {
+			window.location.href = response.url;
+			return;
+		}
+
+		// ログイン不可ユーザー
+		if (response.message == null) {
+			alert(commuError);
+			return;
+		}
+
+		_resultMessage.style.color = 'red';
+		_resultMessage.textContent = response.message;
+	}
+
+	//通信エラー表示
+	function errorLog(error) {
+		console.error(commuError, error);
+
+		_resultMessage.style.color = 'red';
+		_resultMessage.textContent = commuError;
+	}
 </script>
